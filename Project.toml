@@ -1,0 +1,4 @@
+name = "advent2023"
+uuid = "128e3d65-e813-4959-a40e-cc6946661bac"
+authors = ["Vikas Gorur <vikas@airbase.io>"]
+version = "0.1.0"
