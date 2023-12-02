@@ -86,13 +86,9 @@ end
 #%%
 
 function part2(input::String)::Int
-    result = 0
-    for line in eachline(input)
-        g = parsegame(line)
-        m = minrequired(g)
-        result += m.red * m.green * m.blue
-    end
-    return result
+    map(line -> parsegame(line) |> minrequired |> t -> t.red * t.green * t.blue,
+        readlines(input)) |> sum
+
 end
 
 part2("src/data/2.txt")
