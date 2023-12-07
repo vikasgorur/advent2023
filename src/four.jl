@@ -57,3 +57,39 @@ function part1(input::String)::Int
 end
 
 part1("src/data/4.txt")
+
+#%%
+
+mutable struct Card2
+    number::Int
+    matching::Int
+    copies::Int
+end
+
+parsecard2(line::String)::Card2 = begin
+    c = parsecard(line)
+    return Card2(
+        c.number,
+        Set(c.winning) ∩ Set(c.have) |> length,
+        1
+    )
+end
+
+parsecards(input::String)::Vector{Card2} = parsecard2.(eachline(input))
+
+processcards(input::String) = begin
+    cards = parsecards(input)
+    process(i::Int) = begin
+        (j -> cards[j].copies += cards[i].copies).(
+            (i+1):(i + cards[i].matching)
+        )
+    end
+    process.(1:length(cards))
+    cards
+end
+
+cards = processcards("src/data/4.txt")
+
+#%%
+
+sum(c.copies for c in cards)
